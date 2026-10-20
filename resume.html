@@ -34,6 +34,7 @@
 
 <style>
   html { scroll-behavior: smooth; }
+  section[id] { scroll-margin-top: 5rem; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
@@ -107,15 +108,22 @@
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] { opacity: 1; transform: none; filter: none; border-radius: inherit; transition: none; }
   }
+
+  @media print {
+    header, footer, .thread-line, .thread-node, button { display: none !important; }
+    [data-reveal] { opacity: 1 !important; transform: none !important; filter: none !important; }
+    body, main { background: #fff !important; }
+    .bg-navy { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
 </style>
 </head>
 
-<body class="font-body text-charcoal antialiased">
+<body id="top" class="font-body text-charcoal antialiased">
 
   <!-- ============ NAV ============ -->
   <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-navy/10">
     <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between" aria-label="Primary">
-      <a href="index.html#top" class="flex items-center gap-3 group">
+      <a href="#top" class="flex items-center gap-3 group">
         <span class="w-9 h-9 flex items-center justify-center bg-navy text-cream font-display font-bold text-xs rounded-full">KCM</span>
         <span class="font-display font-bold text-navy text-lg hidden sm:inline">Kelly Chen Martillana</span>
       </a>
@@ -130,23 +138,21 @@
       </button>
 
       <ul class="hidden md:flex items-center gap-8 font-semibold text-sm text-navy uppercase tracking-wide">
-        <li><a href="index.html#projects" class="link-underline pb-1">Projects</a></li>
-        <li><a href="index.html#samples" class="link-underline pb-1">Samples</a></li>
-        <li><a href="index.html#skills" class="link-underline pb-1">Skills</a></li>
-        <li><a href="resume.html" class="text-gold">Resume</a></li>
-        <li><a href="index.html#contact" class="link-underline pb-1">Contact</a></li>
-        <li><a href="index.html#contact" class="bg-gold text-navy px-5 py-2 rounded-full font-bold hover:bg-navy hover:text-cream transition-colors normal-case">Work With Me</a></li>
+        <li><a href="#summary" class="link-underline pb-1">Summary</a></li>
+        <li><a href="#skills" class="link-underline pb-1">Skills</a></li>
+        <li><a href="#experience" class="link-underline pb-1">Experience</a></li>
+        <li><a href="#education" class="link-underline pb-1">Education</a></li>
+        <li><a href="mailto:kcmartillana@gmail.com" class="bg-gold text-navy px-5 py-2 rounded-full font-bold hover:bg-navy hover:text-cream transition-colors normal-case">Work With Me</a></li>
       </ul>
     </nav>
 
     <div id="mobileMenu" class="hidden md:hidden border-t border-navy/10 bg-cream">
       <ul class="flex flex-col px-6 py-4 gap-4 font-semibold text-navy uppercase tracking-wide">
-        <li><a href="index.html#projects" class="block py-1">Projects</a></li>
-        <li><a href="index.html#samples" class="block py-1">Samples</a></li>
-        <li><a href="index.html#skills" class="block py-1">Skills</a></li>
-        <li><a href="resume.html" class="block py-1 text-gold">Resume</a></li>
-        <li><a href="index.html#contact" class="block py-1">Contact</a></li>
-        <li><a href="index.html#contact" class="inline-block bg-gold text-navy px-5 py-2 rounded-full font-bold w-fit normal-case">Work With Me</a></li>
+        <li><a href="#summary" class="block py-1">Summary</a></li>
+        <li><a href="#skills" class="block py-1">Skills</a></li>
+        <li><a href="#experience" class="block py-1">Experience</a></li>
+        <li><a href="#education" class="block py-1">Education</a></li>
+        <li><a href="mailto:kcmartillana@gmail.com" class="inline-block bg-gold text-navy px-5 py-2 rounded-full font-bold w-fit normal-case">Work With Me</a></li>
       </ul>
     </div>
   </header>
@@ -168,20 +174,20 @@
           <a href="mailto:kcmartillana@gmail.com" class="link-underline text-navy font-semibold pb-0.5">kcmartillana@gmail.com</a>
         </div>
 
-        <a data-reveal href="Kelly-Chen-Martillana-Resume.pdf" download
+        <button data-reveal type="button" onclick="window.print()"
            class="inline-flex items-center gap-2 mt-7 bg-navy text-cream font-semibold px-6 py-3 rounded-full hover:bg-gold hover:text-navy transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" />
           </svg>
           Download Resume (PDF)
-        </a>
+        </button>
       </div>
     </section>
 
     <div class="thread-node" aria-hidden="true"></div>
 
     <!-- ============ PROFESSIONAL SUMMARY ============ -->
-    <section class="panel pb-6">
+    <section id="summary" class="panel pb-6">
       <div class="max-w-4xl mx-auto px-6">
         <div class="bg-navy rounded-3xl px-8 py-10 sm:px-14 sm:py-12">
           <p data-reveal class="font-display text-goldlight text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">Professional Summary</p>
@@ -195,7 +201,7 @@
     <div class="thread-node" aria-hidden="true"></div>
 
     <!-- ============ CORE COMPETENCIES & SKILLS ============ -->
-    <section class="panel pt-6 pb-6">
+    <section id="skills" class="panel pt-6 pb-6">
       <div class="max-w-4xl mx-auto px-6">
         <h2 data-reveal class="font-display font-black text-navy text-2xl sm:text-3xl mb-8">Core Competencies &amp; Skills</h2>
 
@@ -226,7 +232,7 @@
     <div class="thread-node" aria-hidden="true"></div>
 
     <!-- ============ WORK EXPERIENCE ============ -->
-    <section class="panel pt-6 pb-6">
+    <section id="experience" class="panel pt-6 pb-6">
       <div class="max-w-4xl mx-auto px-6">
         <h2 data-reveal class="font-display font-black text-navy text-2xl sm:text-3xl mb-8">Work Experience</h2>
 
@@ -291,7 +297,7 @@
     <div class="thread-node" aria-hidden="true"></div>
 
     <!-- ============ EDUCATION ============ -->
-    <section class="panel pt-6 pb-20">
+    <section id="education" class="panel pt-6 pb-20">
       <div class="max-w-4xl mx-auto px-6">
         <h2 data-reveal class="font-display font-black text-navy text-2xl sm:text-3xl mb-8">Education</h2>
 
@@ -329,10 +335,10 @@
     <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
       <p>© <span id="year"></span> Kelly Chen Martillana. Based in Batangas, Philippines.</p>
       <ul class="flex gap-6 font-medium">
-        <li><a href="index.html#projects" class="link-underline pb-1">Projects</a></li>
-        <li><a href="index.html#skills" class="link-underline pb-1">Skills</a></li>
-        <li><a href="resume.html" class="link-underline pb-1">Resume</a></li>
-        <li><a href="index.html#contact" class="link-underline pb-1">Contact</a></li>
+        <li><a href="#skills" class="link-underline pb-1">Skills</a></li>
+        <li><a href="#experience" class="link-underline pb-1">Experience</a></li>
+        <li><a href="#education" class="link-underline pb-1">Education</a></li>
+        <li><a href="mailto:kcmartillana@gmail.com" class="link-underline pb-1">Contact</a></li>
       </ul>
     </div>
   </footer>
