@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kelly Chen Martillana — Executive &amp; Technical Virtual Assistant</title>
+<meta name="description" content="Precise administrative and technical support for real estate teams and business owners." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          cream: '#F4EEE1',
+          navy: '#26344A',
+          navydeep: '#1D2839',
+          gold: '#E3A542',
+          goldlight: '#F6D9A0',
+          charcoal: '#33312E',
+        },
+        fontFamily: {
+          display: ['Poppins', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+  body { background-color: #F4EEE1; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+    outline: 2px solid #E3A542;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(#E3A542, #E3A542);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 2px;
+    transition: background-size 0.25s ease;
+  }
+  .link-underline:hover, .link-underline:focus-visible {
+    background-size: 100% 2px;
+  }
+
+  .sparkle {
+    position: absolute;
+    color: #E3A542;
+  }
+
+  .lightbox-trigger {
+    cursor: zoom-in;
+    position: relative;
+  }
+  .lightbox-trigger img { transition: transform 0.35s ease; }
+  .lightbox-trigger:hover img,
+  .lightbox-trigger:focus-visible img { transform: scale(1.04); }
+  .lightbox-trigger::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(29, 40, 57, 0);
+    transition: background 0.25s ease;
+    pointer-events: none;
+  }
+  .lightbox-trigger:hover::after,
+  .lightbox-trigger:focus-visible::after {
+    background: rgba(29, 40, 57, 0.12);
+  }
+
+  /* Continuous thread connecting every section, so the page reads as one
+     unbroken flow instead of stacked, separately-colored "pages" */
+  .thread-wrap { position: relative; }
+  .thread-line {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    transform: translateX(-50%);
+    background: linear-gradient(to bottom, transparent 0%, #E3A542 6%, #E3A542 94%, transparent 100%);
+    opacity: 0.55;
+    z-index: 0;
+  }
+  .thread-node {
+    position: relative;
+    z-index: 10;
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background: #E3A542;
+    margin: 0 auto 2.5rem auto;
+    box-shadow: 0 0 0 6px #F4EEE1;
+  }
+  .thread-node--onpanel { box-shadow: 0 0 0 6px #26344A; }
+
+  .panel { position: relative; z-index: 10; }
+
+  /* Morph-in transition: elements start as soft, slightly-scaled, rounded
+     blobs and settle into their true shape/position as they scroll into view */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+    border-radius: 28px;
+    filter: blur(4px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      border-radius 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform, border-radius, filter;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    border-radius: 0px;
+    filter: blur(0);
+  }
+  [data-reveal="circle"] { border-radius: 9999px; }
+  [data-reveal="circle"].is-visible { border-radius: 9999px; }
+
+  [data-reveal-group] > [data-reveal]:nth-child(1) { transition-delay: 0ms; }
+  [data-reveal-group] > [data-reveal]:nth-child(2) { transition-delay: 90ms; }
+  [data-reveal-group] > [data-reveal]:nth-child(3) { transition-delay: 180ms; }
+  [data-reveal-group] > [data-reveal]:nth-child(4) { transition-delay: 270ms; }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      border-radius: inherit;
+      transition: none;
+    }
+  }
+</style>
+</head>
+
+<body class="font-body text-charcoal antialiased">
+
+  <!-- ============ NAV ============ -->
+  <header class="sticky top-0 z-50 bg-cream/90 backdrop-blur border-b border-navy/10">
+    <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between" aria-label="Primary">
+      <a href="#top" class="flex items-center gap-3 group">
+        <span class="w-9 h-9 flex items-center justify-center bg-navy text-cream font-display font-bold text-xs rounded-full">KCM</span>
+        <span class="font-display font-bold text-navy text-lg hidden sm:inline">Kelly Chen Martillana</span>
+      </a>
+
+      <button id="menuBtn" class="md:hidden text-navy" aria-expanded="false" aria-controls="mobileMenu" aria-label="Toggle menu">
+        <svg id="menuIconOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="menuIconClose" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.75">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <ul class="hidden md:flex items-center gap-8 font-semibold text-sm text-navy uppercase tracking-wide">
+        <li><a href="#projects" class="link-underline pb-1">Projects</a></li>
+        <li><a href="#samples" class="link-underline pb-1">Samples</a></li>
+        <li><a href="#skills" class="link-underline pb-1">Skills</a></li>
+        <li><a href="/resume" class="link-underline pb-1">Resume</a></li>
+        <li><a href="#contact" class="link-underline pb-1">Contact</a></li>
+        <li><a href="#contact" class="bg-gold text-navy px-5 py-2 rounded-full font-bold hover:bg-navy hover:text-cream transition-colors normal-case">Work With Me</a></li>
+      </ul>
+    </nav>
+
+    <div id="mobileMenu" class="hidden md:hidden border-t border-navy/10 bg-cream">
+      <ul class="flex flex-col px-6 py-4 gap-4 font-semibold text-navy uppercase tracking-wide">
+        <li><a href="#projects" class="block py-1">Projects</a></li>
+        <li><a href="#samples" class="block py-1">Samples</a></li>
+        <li><a href="#skills" class="block py-1">Skills</a></li>
+        <li><a href="/resume" class="block py-1">Resume</a></li>
+        <li><a href="#contact" class="block py-1">Contact</a></li>
+        <li><a href="#contact" class="inline-block bg-gold text-navy px-5 py-2 rounded-full font-bold w-fit normal-case">Work With Me</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- everything below lives on one continuous cream canvas, tied together
+       by a single vertical thread running down the center -->
+  <main id="top" class="thread-wrap bg-cream">
+    <div class="thread-line" aria-hidden="true"></div>
+
+    <!-- ============ HERO ============ -->
+    <section class="panel pt-16 sm:pt-20 pb-16 text-center">
+      <div class="max-w-3xl mx-auto px-6">
+        <h1 data-reveal class="font-display font-black text-navy text-5xl sm:text-6xl lg:text-7xl leading-[1.05] mb-3">WELCOME</h1>
+        <p data-reveal class="font-display font-semibold text-navy/80 text-base sm:text-lg mb-10">Your Business, Organized. Your Time, Reclaimed.</p>
+
+        <div class="relative w-64 h-80 sm:w-72 sm:h-96 mx-auto mb-8">
+          <div class="absolute left-0 bottom-0 w-3/4 h-3/4 bg-navy" aria-hidden="true"></div>
+          <div data-reveal class="absolute right-0 top-0 w-3/4 h-[85%] overflow-hidden shadow-lg">
+            <img src="kelly-photo.jpeg" alt="Portrait of Kelly Chen Martillana" class="w-full h-full object-cover object-top" />
+          </div>
+        </div>
+
+        <p data-reveal class="font-display font-bold text-navy text-xs sm:text-sm tracking-[0.2em] uppercase mb-1">Your Trusted</p>
+        <p data-reveal class="font-display font-bold text-navy text-xs sm:text-sm tracking-[0.2em] uppercase">Executive &amp; Technical Virtual Assistant</p>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ INTRO (floating navy panel) ============ -->
+    <section class="panel pb-6">
+      <div class="max-w-4xl mx-auto px-6">
+        <div class="bg-navy rounded-3xl px-8 py-12 sm:px-14 sm:py-14">
+          <p data-reveal class="font-display text-goldlight text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">Let Me Introduce Myself</p>
+          <h2 data-reveal class="font-display font-black text-cream text-3xl sm:text-4xl mb-5">Hello! I'm Kelly</h2>
+          <p data-reveal class="text-cream/80 leading-relaxed max-w-2xl mb-8">
+            A detail-oriented and highly analytical Virtual Assistant with 5+ years supporting executives, real estate teams, and fast-paced businesses. I combine strong administrative, copy editing, and transaction coordination skills with a technical background in data management and process optimization — so schedules stay on track, documents stay compliant, and nothing falls through the cracks.
+          </p>
+          <a data-reveal href="#contact" class="inline-block bg-gold text-navy font-bold px-7 py-3 rounded-full hover:bg-cream transition-colors">Work With Me</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ WHY CHOOSE ME ============ -->
+    <section id="about" class="panel pt-6 pb-6">
+      <div class="max-w-4xl mx-auto px-6">
+        <h2 data-reveal class="font-display font-black text-navy text-3xl sm:text-4xl mb-8 text-center sm:text-left">Why Choose Me</h2>
+        <div data-reveal-group class="grid grid-cols-2 gap-4 sm:gap-6">
+          <div data-reveal class="bg-white rounded-2xl p-6 text-center shadow-sm">
+            <p class="font-display font-black text-navy text-4xl sm:text-5xl mb-1">5+</p>
+            <p class="font-display font-semibold text-navy/70 text-xs sm:text-sm uppercase tracking-wide">Years of Experience</p>
+          </div>
+          <div data-reveal class="bg-navy rounded-2xl p-6 text-center shadow-sm">
+            <p class="font-display font-black text-cream text-4xl sm:text-5xl mb-1">3</p>
+            <p class="font-display font-semibold text-cream/70 text-xs sm:text-sm uppercase tracking-wide">Industries Served</p>
+          </div>
+          <div data-reveal class="bg-navy rounded-2xl p-6 text-center shadow-sm">
+            <p class="font-display font-black text-cream text-4xl sm:text-5xl mb-1">100%</p>
+            <p class="font-display font-semibold text-cream/70 text-xs sm:text-sm uppercase tracking-wide">Document Compliance</p>
+          </div>
+          <div data-reveal class="bg-gold rounded-2xl p-6 text-center shadow-sm">
+            <p class="font-display font-black text-navy text-4xl sm:text-5xl mb-1">10+</p>
+            <p class="font-display font-semibold text-navy/70 text-xs sm:text-sm uppercase tracking-wide">Tools &amp; Platforms</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ FEATURED PROJECTS (floating navy panel) ============ -->
+    <section id="projects" class="panel pt-6 pb-6">
+      <div class="max-w-6xl mx-auto px-6">
+        <div class="bg-navy rounded-3xl px-6 py-12 sm:px-12 sm:py-14">
+          <p data-reveal class="font-display text-goldlight text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">My Work</p>
+          <h2 data-reveal class="font-display font-black text-cream text-3xl sm:text-4xl mb-4">Featured Projects</h2>
+          <p data-reveal class="text-cream/70 max-w-xl mb-12">A selection of engagements across real estate, data operations, and content — each handled with the same attention to accuracy.</p>
+
+          <div data-reveal-group class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <article data-reveal class="bg-cream rounded-2xl overflow-hidden flex flex-col">
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="font-display font-bold text-lg text-navy mb-2">Real Estate Transaction Coordination</h3>
+                <p class="text-sm text-charcoal/75 mb-4 flex-1">End-to-end coordination of listings and closings across multiple MLS platforms, keeping documentation accurate and on schedule.</p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">DocuSign</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">MLS</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">Compliance</span>
+                </div>
+              </div>
+            </article>
+
+            <article data-reveal class="bg-cream rounded-2xl overflow-hidden flex flex-col">
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="font-display font-bold text-lg text-navy mb-2">Data Governance &amp; Quality Audits</h3>
+                <p class="text-sm text-charcoal/75 mb-4 flex-1">Reconciliation and quality control across governance and compensation datasets, with SOPs built to standardize the process.</p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">SQL</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">SOPs</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">Data Audits</span>
+                </div>
+              </div>
+            </article>
+
+            <article data-reveal class="bg-cream rounded-2xl overflow-hidden flex flex-col">
+              <div class="p-6 flex flex-col flex-1">
+                <h3 class="font-display font-bold text-lg text-navy mb-2">Content &amp; Social Media Management</h3>
+                <p class="text-sm text-charcoal/75 mb-4 flex-1">Designed and published listing and brand content, maintaining an active, consistent presence across social channels.</p>
+                <div class="flex flex-wrap gap-2 mb-5">
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">Canva</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">Instagram</span>
+                  <span class="text-xs font-semibold bg-gold/20 text-navy px-3 py-1 rounded-full">Copywriting</span>
+                </div>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ SAMPLE WORKS (real deliverables gallery) ============ -->
+    <section id="samples" class="panel pt-6 pb-6">
+      <div class="max-w-6xl mx-auto px-6">
+        <p data-reveal class="font-display text-navy/60 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">A Closer Look</p>
+        <h2 data-reveal class="font-display font-black text-navy text-3xl sm:text-4xl mb-4">Sample Works</h2>
+        <p data-reveal class="text-charcoal/70 max-w-xl mb-12">Real materials I've designed and built — from listing collateral to the systems that keep a business organized behind the scenes.</p>
+
+        <div data-reveal-group class="grid sm:grid-cols-2 gap-8">
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-tools-used.png" aria-label="View Tools I Used, full size">
+              <img src="sample-tools-used.png" alt="Grid of everyday admin and social media tool logos" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-property-flyers.png" aria-label="View Property Flyers, full size">
+              <img src="sample-property-flyers.png" alt="Two sample real estate property flyer designs" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-social-posts.png" aria-label="View Social Media Posts, full size">
+              <img src="sample-social-posts.png" alt="Real estate Instagram feed and an agent introduction post" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-market-reports.png" aria-label="View Market Reports, full size">
+              <img src="sample-market-reports.png" alt="Sample monthly market snapshot report designs" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-postcards.png" aria-label="View Postcards, full size">
+              <img src="sample-postcards.png" alt="Sample just-sold real estate postcard design" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+
+          <figure data-reveal class="bg-white rounded-2xl overflow-hidden shadow-sm">
+            <button type="button" class="lightbox-trigger block w-full" data-full="sample-services.png" aria-label="View Services Overview, full size">
+              <img src="sample-services.png" alt="Overview of services: Admin Assistant, Social Media Manager, and Transaction Coordinator" class="w-full h-auto object-cover" />
+            </button>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LIGHTBOX ============ -->
+    <div id="lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 sm:p-8" role="dialog" aria-modal="true" aria-label="Enlarged image viewer">
+      <div id="lightboxOverlay" class="absolute inset-0 bg-navydeep/90"></div>
+      <button id="lightboxClose" type="button" aria-label="Close image viewer" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-10 w-10 h-10 rounded-full bg-cream text-navy flex items-center justify-center hover:bg-gold transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+      <img id="lightboxImage" src="" alt="" class="relative z-10 max-w-full max-h-full rounded-xl shadow-2xl object-contain" />
+    </div>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ SKILLS & TOOLS ============ -->
+    <section id="skills" class="panel pt-6 pb-6">
+      <div class="max-w-6xl mx-auto px-6">
+        <p data-reveal class="font-display text-navy/60 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">Skill Set</p>
+        <h2 data-reveal class="font-display font-black text-navy text-3xl sm:text-4xl mb-10">Skills &amp; Tools</h2>
+
+        <div data-reveal-group class="grid sm:grid-cols-2 gap-6">
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Administrative Support</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Calendar &amp; inbox management</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Client relations</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Document preparation &amp; scheduling</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Real estate transaction coordination</li>
+            </ul>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Digital Marketing &amp; Content</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Copywriting</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Social media management (Instagram)</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Content creation</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Article &amp; blog writing</li>
+            </ul>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Technical &amp; Data Management</h3>
+            <ul class="space-y-3 text-sm">
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Google Workspace &amp; Microsoft Office</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> Database management &amp; data quality audits</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> SQL &amp; process documentation</li>
+              <li class="flex items-start gap-3"><span class="text-gold font-bold">●</span> C++, Java, Python</li>
+            </ul>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Real Estate Platforms</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">DocuSign</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">KW Command</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Follow Up Boss</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">ABOR MLS</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">CTXMLS</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">SABOR MLS</span>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Project Management</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Asana</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Notion</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">ClickUp</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Google Sheets</span>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-6 shadow-sm">
+            <h3 class="font-display font-bold text-lg text-navy mb-4">Everyday Toolkit</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Gdrive</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Gmail</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Calendar</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Zoom</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Canva</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">CapCut</span>
+              <span class="text-xs font-semibold bg-gold/15 text-navy px-3 py-1.5 rounded-full">Microsoft Apps</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ CERTIFICATIONS ============ -->
+    <section id="certifications" class="panel pt-6 pb-6">
+      <div class="max-w-6xl mx-auto px-6">
+        <p data-reveal class="font-display text-navy/60 text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">Always Learning</p>
+        <h2 data-reveal class="font-display font-black text-navy text-3xl sm:text-4xl mb-10">Certifications</h2>
+
+        <div data-reveal-group class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div data-reveal class="bg-white rounded-2xl p-5 shadow-sm flex gap-4 items-start">
+            <span class="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 text-navy flex items-center justify-center font-bold">✓</span>
+            <div>
+              <p class="font-display font-bold text-navy text-sm leading-snug">Use Canva to Create Social Media Visuals for Business</p>
+              <p class="text-xs text-charcoal/60 mt-1">Coursera Project Network</p>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-5 shadow-sm flex gap-4 items-start">
+            <span class="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 text-navy flex items-center justify-center font-bold">✓</span>
+            <div>
+              <p class="font-display font-bold text-navy text-sm leading-snug">Introduction to Google SEO</p>
+              <p class="text-xs text-charcoal/60 mt-1">UC Davis, via Coursera</p>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-5 shadow-sm flex gap-4 items-start">
+            <span class="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 text-navy flex items-center justify-center font-bold">✓</span>
+            <div>
+              <p class="font-display font-bold text-navy text-sm leading-snug">Social Media Stories: Creative Strategies and Tips</p>
+              <p class="text-xs text-charcoal/60 mt-1">LinkedIn Learning</p>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-5 shadow-sm flex gap-4 items-start">
+            <span class="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 text-navy flex items-center justify-center font-bold">✓</span>
+            <div>
+              <p class="font-display font-bold text-navy text-sm leading-snug">Learning Graphic Design: Techniques</p>
+              <p class="text-xs text-charcoal/60 mt-1">LinkedIn Learning</p>
+            </div>
+          </div>
+
+          <div data-reveal class="bg-white rounded-2xl p-5 shadow-sm flex gap-4 items-start">
+            <span class="flex-shrink-0 w-9 h-9 rounded-full bg-gold/20 text-navy flex items-center justify-center font-bold">✓</span>
+            <div>
+              <p class="font-display font-bold text-navy text-sm leading-snug">Data-Driven Product Research and Design</p>
+              <p class="text-xs text-charcoal/60 mt-1">LinkedIn Learning</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="thread-node" aria-hidden="true"></div>
+
+    <!-- ============ CONTACT (floating navy panel) ============ -->
+    <section id="contact" class="panel pt-6 pb-20 text-center">
+      <div class="max-w-2xl mx-auto px-6">
+        <div class="bg-navy rounded-3xl px-8 py-14 sm:px-14">
+          <p data-reveal class="font-display text-goldlight text-xs sm:text-sm tracking-[0.25em] uppercase mb-3">Let's Work Together</p>
+          <h2 data-reveal class="font-display font-black text-cream text-3xl sm:text-4xl mb-4">Ready to get your time back?</h2>
+          <p data-reveal class="text-cream/70 mb-8">Tell me a bit about what's on your plate — I'll follow up within one business day.</p>
+          <a data-reveal href="mailto:kcmartillana@gmail.com" class="inline-block bg-gold text-navy font-bold px-7 py-3 rounded-full hover:bg-cream transition-colors mb-8">
+            kcmartillana@gmail.com
+          </a>
+          <div data-reveal class="flex items-center justify-center text-sm text-cream/70">
+            <span class="font-medium">+63 956 325 1638</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-navydeep text-cream/60">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
+      <p>© <span id="year"></span> Kelly Chen Martillana. Based in Batangas, Philippines.</p>
+      <ul class="flex gap-6 font-medium">
+        <li><a href="#projects" class="link-underline pb-1">Projects</a></li>
+        <li><a href="#skills" class="link-underline pb-1">Skills</a></li>
+        <li><a href="/resume" class="link-underline pb-1">Resume</a></li>
+        <li><a href="#contact" class="link-underline pb-1">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const iconOpen = document.getElementById('menuIconOpen');
+    const iconClose = document.getElementById('menuIconClose');
+
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', String(!isOpen));
+    });
+
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+        menuBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Morph-in transition as content scrolls into view
+    const revealTargets = document.querySelectorAll('[data-reveal]');
+    if ('IntersectionObserver' in window && revealTargets.length) {
+      const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+
+      revealTargets.forEach((el) => revealObserver.observe(el));
+    } else {
+      revealTargets.forEach((el) => el.classList.add('is-visible'));
+    }
+
+    // Sample Works lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    let lastFocusedTrigger = null;
+
+    function openLightbox(trigger) {
+      const src = trigger.getAttribute('data-full');
+      const label = trigger.getAttribute('aria-label') || '';
+      lightboxImage.src = src;
+      lightboxImage.alt = label.replace(/^View /, '').replace(/, full size$/, '');
+      lastFocusedTrigger = trigger;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+      lightboxClose.focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      lightboxImage.src = '';
+      document.body.style.overflow = '';
+      if (lastFocusedTrigger) lastFocusedTrigger.focus();
+    }
+
+    document.querySelectorAll('.lightbox-trigger').forEach((trigger) => {
+      trigger.addEventListener('click', () => openLightbox(trigger));
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxOverlay.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox();
+    });
+  </script>
+
+</body>
+</html>
